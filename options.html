@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CoWIN Slot Availablity Notifier</title>
+</head>
+<style type="text/css">
+.split {
+  height: 83%;
+  position: fixed;
+  overflow: auto;
+}
+
+#left-notifs {
+  overflow: scroll;
+  height: 59%;
+  border: 3px solid orange;
+}
+
+.left {
+  left: 0;
+  width: 50%;
+  padding-left: 10px;
+}
+
+.right {
+  right: 0;
+  width: 45%;
+  margin-right: 10px;
+  border: 3px solid #73AD21;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+<body style="margin: 10px">
+<form>
+  <select name="faltuName" id="faltuId" style="width: 105px">
+    <option><b>DISCLAIMER</b></option>
+    <option disabled value="faltu0">* This extension queries the publicly available CoWIN APIs at regular time intervals and an alarm goes off whenever any vaccination slots is available.</option>
+    <option disabled value="faltu1">* Developer(s) take no responsibility of any legal repercussion or any other impact upon usage of this extension/script.</option>
+    <option disabled value="faltu2">* The usage of this extension is solely user's discretion and developer(s) cannot be held accountable for any effect related to this extension in any way.</option>
+    <option disabled value="faltu3">* User should consider all the rules specified by apisetu.gov.in, adhere to them before running the script.</option>
+    <option disabled value="faltu4">* This extension/script runs locally on your browser and uses your IP address to make requests to the CoWIN APIs.</option>
+    <option disabled value="faltu5">* It is solely user's responsibility not to make too many requests otherwise their IP can get banned by the CoWIN servers.</option>
+    <option disabled value="faltu6">* For clear instructions regarding the number of API calls allowed every 5 minutes and other information, check out https://apisetu.gov.in/public/marketplace/api/cowin.</option>
+  </select>
+</form>
+<ul>
+  <li><b>Run Script and leave this page running, an alarm will go off immediately when any slot is available. Keep your internet connection switched-on as it is required to query the APIs.</b></li>
+  <li>The latest availability data is reflected in the table on the right. For detailed logs, see below in the left section.</li>
+  <li>Script keeps running after regular intervals until explicitly terminated. TO STOP SCRIPT, RELOAD/CLOSE THIS PAGE OR use the 'Stop Script' button.</li>
+</ul>
+<hr>
+
+<div class="split left" id="left-side">
+<div id="left-criteria">
+<form>
+  
+  <div style="width: 100%;">
+  <div style="width: 33%; display:inline; float: left;">
+  <b>Age:</b><br>
+  <input type="checkbox" id="18" name="age" value="18" checked>
+  <label for="18">18-44</label><br>
+
+  <input type="checkbox" id="45" name="age" value="45" checked>
+  <label for="45">45+</label><br>
+  </div>
+
+  <div style="width: 33%; display:inline; float: left;">
+  <b>Vaccine:</b><br>
+  <input type="checkbox" id="COVAXIN" name="vaccInput" value="COVAXIN" checked>
+  <label for="COVAXIN">Covaxin</label><br>
+
+  <input type="checkbox" id="COVISHIELD" name="vaccInput" value="COVISHIELD" checked>
+  <label for="COVISHIELD">Covishield</label><br>
+  
+  <input type="checkbox" id="SPUTNIK V" name="vaccInput" value="SPUTNIK V" checked>
+  <label for="SPUTNIK V">Sputnik V</label><br><br>
+  </div>
+
+  <div style="width: 33%; display:inline; float: left;">
+  <b>Dose:</b><br>
+  <input required type="checkbox" id="dose1" name="doseInput" value="dose1" checked>
+  <label for="dose1">Dose 1</label><br>
+
+  <input required type="checkbox" id="dose2" name="doseInput" value="dose2" checked>
+  <label for="dose2">Dose 2</label><br><br><br><br>
+  </div>
+  </div>
+
+
+  <b>Pin Code(s):</b><span> (e.g. 471001,462003)</span><br>
+  <input required id="pincode" type="text" name="pincode">
+  <br><br>
+
+  <b>Run every</b> <input required id="every_x_secs" type="text" name="every_x_secs" maxlength="10" style="width: 80px"> seconds(>=15).
+  <br><br>
+</form>
+
+<button id="runnerButton">Run Script!</button>
+<button id="stopScriptButton">Stop Script</button>
+<br>
+<hr>
+<h3>Detailed logs:</h3>
+</div>
+<div id="left-notifs"></div>
+</div>
+
+<div class="split right" id="right-side">
+    <h3 style="text-align: center;">Latest Available Slots</h3>
+    <p id="last_updated_time" style="color: green; text-align: center;"></p>
+    <table id="latest_table">
+    <thead>
+      <tr>
+      <th># </th>
+      <th>Age</th>
+      <th>PinCode</th>
+      <th>Centre Name</th>
+      <th>District</th>
+      <th>Date</th>
+      <th>Vaccine</th>
+      <th>Dose: Qty.</th>
+    </tr>
+    </thead>
+    <tbody id="latest_table_body">
+      <tr>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+    </tbody>
+    
+  </table>
+</div>
+
+
+<script src="options.js" charset="utf-8"></script>
+
+</html>
